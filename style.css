@@ -55,7 +55,7 @@ h1, h2, h3, h4, p, li {
 
     li{
         list-style-type: none;
-        margin: 50px;
+        margin: 40px;
         font-size: 1.1rem;
         font-weight: 700;
     }
@@ -68,21 +68,41 @@ h1, h2, h3, h4, p, li {
 
 .card-container{
     width: 100%;
-    background-color: #191a21;
+    /* background-color: #191a21; */
 }
 
 .card{
     background-color: #373a46;
-    width: 500px;
-    height: 600px;
+    width: 400px;
+    height: 500px;
     border-radius: 5%;
     margin: 50px;
 }
 
+.close-btn{
+    padding: 25px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.icon{
+    width: 16px;
+}
+
 .location{
-    padding: 50px;
+    padding: 0px 40px;
 }
 
-.qol-container{
-
+.flag{
+    margin-top: 20px;
+    width: 60px;
+    border-radius: 10%;
 }
+
+hr{
+    border-color: #19cfe7;
+    margin: 25px auto;
+    width: 80%;
+    display: flex; 
+}
+
