@@ -74,9 +74,10 @@ h1, h2, h3, h4, p, li {
 .card{
     background-color: #373a46;
     width: 400px;
-    height: 500px;
-    border-radius: 5%;
+    height: auto;
+    border-radius: 20px;
     margin: 50px;
+    padding-bottom: 20px;
 }
 
 .close-btn{
