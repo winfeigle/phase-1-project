@@ -9,6 +9,20 @@ body{
 
 .header{
     margin: 100px 50px;
+    width: 450px;
+}
+
+.header p{
+    padding-top: 40px;
+    opacity: 50%;
+    height: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.header p img{
+    width: 100px;
+    padding-left: 10px;
 }
 
 h1, h2, h3, h4, p, li {
@@ -18,13 +32,13 @@ h1, h2, h3, h4, p, li {
 
     h1 {
         font-size: 2rem;
-        font-weight: 400;
         margin-bottom: 0.75rem;
     }
 
     h2{
         font-weight: lighter;
         font-size: 1.25rem;
+        line-height: 1.75rem;
     }
 
     h3{
