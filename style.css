@@ -1,14 +1,16 @@
 * {
     margin: 0;
     padding: 0;
+    /* border: 1px solid white; */
 }
 
 body{
     background-color: #202431;
+    width: 100%;
 }
 
 .header{
-    margin: 100px 50px;
+    margin: 50px;
     width: 450px;
 }
 
@@ -57,7 +59,7 @@ h1, h2, h3, h4, p, li {
         list-style-type: none;
         margin: 40px;
         font-size: 1.1rem;
-        font-weight: 700;
+        font-weight: 400;
     }
 
     li p{
@@ -67,8 +69,7 @@ h1, h2, h3, h4, p, li {
     }
 
 .card-container{
-    width: 100%;
-    /* background-color: #191a21; */
+    display: inline-flex;
 }
 
 .card{
@@ -106,4 +107,6 @@ hr{
     width: 80%;
     display: flex; 
 }
+
+
 
