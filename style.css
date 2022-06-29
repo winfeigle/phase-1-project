@@ -32,7 +32,7 @@ body{
     display: flex;
 }
 
-#city, #state{
+#city, #states{
     margin-right: 10px;
     padding-left: 5px;
     border: none;
@@ -44,7 +44,7 @@ body{
     height: 40px;
 }
 
-#state{
+#states{
     width: 200px;
 }
 
@@ -132,7 +132,7 @@ h1, h2, h3, h4, p, td {
     padding: 0px 40px;
 }
 
-.flag{
+#flag{
     margin-top: 20px;
     width: 60px;
     border-radius: 10%;

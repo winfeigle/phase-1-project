@@ -1,5 +1,6 @@
 const form = document.getElementById('search-form')
 const incomeRow = document.getElementById('income')
+const states = document.getElementById('states')
 
 
 //EVENT LISTENERS
@@ -9,18 +10,26 @@ form.addEventListener('submit', handleSubmit)
 //EVENT HANDLERS
 function handleSubmit(e){
     e.preventDefault()
-    
+
     let city = e.target.city.value
-    if(city.includes(' ')) city.replace(' ', '-')
 
-    let state = e.target.state.value
-    let location = `${city}-${state}`.toLowerCase()
+    let st = e.target.states.value
 
-    console.log(location)
-    getIncomeData(location)
-    getPropertyData(location)
-    getPopulation(location)
-    getAge(location)
+    let state = states.options[states.selectedIndex].text
+
+
+
+
+    let h3 = document.querySelector('.location h3')
+    h3.textContent = city
+
+    let h4 = document.querySelector('.location h4')
+    h4.textContent = `${state}, USA`
+
+    let stateFlag = document.getElementById('flag')
+    stateFlag.src = `https://www.states101.com/img/flags/svg/${state.toLowerCase()}.svg`
+
+    renderCard(city, st)
 
     form.reset()
 }
@@ -31,6 +40,7 @@ function updateIncome(cityObj){
     let income = cityObj.data.slice(-1)['0']['Household Income by Race'].toLocaleString('en-US', {
             style: 'currency',
             currency: 'USD',
+            maximumFractionDigits: 0,
         });
 
       let incomeData = document.querySelector('#income .data')
@@ -41,6 +51,7 @@ function updateProperty(cityObj){
     let propertyValue = cityObj.data.slice(-1)['0']['Property Value'].toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
+        maximumFractionDigits: 0,
       });
 
       let propertyData = document.querySelector('#property .data')
@@ -65,12 +76,19 @@ function updateAge(cityObj){
 
 
 //RENDER NEW CARD
-function renderCard(location){
+function renderCard(city, st){
 
+    let location = `${city.replace(' ','-')}-${st}`.toLowerCase()
+
+    getIncomeData(location)
+    getPropertyData(location)
+    getPopulation(location)
+    getAge(location)
 }
 
 
 //FETCH REQUESTS
+//GET
 function getIncomeData(location){
     fetch(`https://datausa.io/api/data?measure=Household%20Income%20by%20Race,Household%20Income%20by%20Race%20Moe&Geography=${location}:similar&year=latest`)
         .then(res => res.json())
@@ -96,14 +114,16 @@ function getAge(location){
 }
 
 
-
-// //State Flag Image
-// fetch(`https://www.states101.com/img/flags/svg/${state}.svg`)
-
-// //Median Household Income
-// fetch(`https://datausa.io/api/data?measure=Household%20Income%20by%20Race,Household%20Income%20by%20Race%20Moe&Geography=${city}-${stateAbbreviation}:similar&year=latest`)
-
-// //Median Property value
-// fetch(`https://datausa.io/api/data?measure=Property%20Value&Geography=${city}-${stateAbbreviation}:parents&year=latest`)
-
-document.querySelector("#Splash > div:nth-child(5) > div > div:nth-child(4) > div.stat-value")
+//POST
+function postCard(newToyObject){
+    fetch(`http://localhost:3000/toys`, {
+      method: 'POST',
+      headers: {
+        'Content-Type':'application/json',
+        Accept:'application/json'
+      },
+      body: JSON.stringify(newToyObject)
+    })
+    .then(res => res.json())
+    .then(toy => console.log(toy))
+  }
