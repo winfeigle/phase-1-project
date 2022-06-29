@@ -87,17 +87,14 @@ h1, h2, h3, h4, p, td {
         opacity: 25%;
     }
 
-    table{
+    p{
         margin: 40px;
         font-size: 1.1rem;
         font-weight: 400;
     }
 
-    td{
-        padding: 15px 0px;
-    }
-
-    td.data{
+    span.data{
+        margin-left: 15px;
         font-family: monospace;
         font-size: 1.25rem;
         font-weight: bolder;
