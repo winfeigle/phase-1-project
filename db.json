@@ -1,5 +1,46 @@
 {
-    "locations": [
-        
-    ]
+  "locations": [
+    {
+      "city": "Denver",
+      "st": "CO",
+      "state": "Colorado",
+      "stateStr": "denver-co",
+      "id": 1
+    },
+    {
+      "city": "Denver",
+      "st": "CO",
+      "state": "Colorado",
+      "stateStr": "denver-co",
+      "id": 2
+    },
+    {
+      "city": "Denver",
+      "st": "CO",
+      "state": "Colorado",
+      "stateStr": "denver-co",
+      "id": 3
+    },
+    {
+      "city": "Denver",
+      "st": "CO",
+      "state": "Colorado",
+      "stateStr": "denver-co",
+      "id": 4
+    },
+    {
+      "city": "Denver",
+      "st": "CO",
+      "state": "Colorado",
+      "stateStr": "denver-co",
+      "id": 5
+    },
+    {
+      "city": "Denver",
+      "st": "CO",
+      "state": "Colorado",
+      "stateStr": "denver-co",
+      "id": 6
+    }
+  ]
 }

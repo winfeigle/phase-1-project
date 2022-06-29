@@ -1,6 +1,5 @@
 const form = document.getElementById('search-form')
 const container = document.querySelector('.card-container')
-const incomeRow = document.getElementById('income')
 const states = document.getElementById('states')
 const card = document.querySelector('#card')
 
@@ -9,63 +8,28 @@ const card = document.querySelector('#card')
 form.addEventListener('submit', handleSubmit)
 
 
-//EVENT HANDLERS
 function handleSubmit(e){
     e.preventDefault()
 
-    let city = e.target.city.value
-    let st = e.target.states.value
-    let state = states.options[states.selectedIndex].text
+    //create location object (posts to db.json) from search input
+    let newLocationObject = {
+    city: e.target.city.value,
+    st: e.target.states.value,
+    state: states.options[states.selectedIndex].text,
+    stateStr: `${e.target.city.value.replace(' ','-')}-${e.target.states.value}`.toLowerCase(),
+    }
 
-    renderCard(city, st, state)
+    //Rendering card to page
+    renderCard(newLocationObject)
+    postLocation(newLocationObject)
 
+    // //Resetting form
     form.reset()
 }
 
-
-//RENDER UPDATES
-function updateIncome(cityObj){
-    let income = cityObj.data.slice(-1)['0']['Household Income by Race'].toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            maximumFractionDigits: 0,
-        });
-
-      let incomeData = document.querySelector('#income .data')
-      incomeData.textContent = income
-}
-
-function updateProperty(cityObj){
-    let propertyValue = cityObj.data.slice(-1)['0']['Property Value'].toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        maximumFractionDigits: 0,
-      });
-
-      let propertyData = document.querySelector('#property .data')
-      propertyData.textContent = propertyValue
-}
-
-function updatePopulation(cityObj){
-    let population = cityObj.data.slice(-1)['0']['Population'].toLocaleString()
-
-    let populationData = document.querySelector('#population .data')
-    populationData.textContent = population
-}
-
-function updateAge(cityObj){
-    let medianAge = cityObj.data.slice(-1)['0']['Median Age']
-
-    let ageData = document.querySelector('#age .data')
-    ageData.textContent = `${medianAge} years`
-}
-
-
-
-
 //RENDER NEW CARD
-function renderCard(city, st, state){
-
+function renderCard(location){
+    
     //Create card that renders after form submission
     const newCard = document.createElement('div')
     newCard.id = 'card'
@@ -81,22 +45,22 @@ function renderCard(city, st, state){
     closeIcon.src = "./media/xmark-solid.png"
     closeButton.append(closeIcon)
 
-    //Create Card Header (Location Info)
+    //Create Card Header (location Info)
     const cardHeader = document.createElement('div')
     cardHeader.className = 'card-header'
     
         const h3 = document.createElement('h3')
-        h3.textContent = city
+        h3.textContent = location.city
         h3.className = 'city'
         cardHeader.append(h3)
 
         const h4 = document.createElement('h4')
-        h4.textContent = `${state}, USA`
+        h4.textContent = `${location.state}, USA`
         h4.className = 'state'
         cardHeader.append(h4)
 
         const stateFlag = document.createElement('img')
-        stateFlag.src = `https://www.states101.com/img/flags/svg/${state.toLowerCase()}.svg`
+        stateFlag.src = `https://www.states101.com/img/flags/svg/${location.state.toLowerCase().replace(' ','-')}.svg`
         stateFlag.id = 'flag'
         cardHeader.append(stateFlag)
 
@@ -106,61 +70,95 @@ function renderCard(city, st, state){
     const hr = document.createElement('hr')
     newCard.append(hr)
 
-    //Create Data Table pulled from API
-    const table = document.createElement('table')
-    table.className = 'data-table'
-    newCard.append(table)
+    const ageDiv = document.createElement('div')
+    const ageP = document.createElement('p')
+        ageP.innerHTML = `
+        <p>Median Age: ${getAge(location.stateStr)}
+        `
+    const ageData = document.createElement('p')
+        ageData.textContent = `${getAge(location.stateStr)}`;
 
+        ageP.appendChild(ageData)
+        ageDiv.append(ageP)
+        newCard.append(ageDiv)
 
-
-    let location = `${city.replace(' ','-')}-${st}`.toLowerCase()
-
-    getIncomeData(location)
-    getPropertyData(location)
-    getPopulation(location)
-    getAge(location)
+        function getAge(stateStr){
+            fetch(`https://datausa.io/api/data?measure=Median%20Age&Geography=${stateStr}:parents&year=latest`)
+                .then(response => response.json())
+                .then(ageData => {
+                    let age = ageData.data.slice(-1)[0]['Median Age']
+                    return age;
+                })
+        }
 }
-
 
 //FETCH REQUESTS
 //GET
-function getIncomeData(location){
-    fetch(`https://datausa.io/api/data?measure=Household%20Income%20by%20Race,Household%20Income%20by%20Race%20Moe&Geography=${location}:similar&year=latest`)
-        .then(res => res.json())
-        .then(cityObj => updateIncome(cityObj))
-}
+// function getIncomeData(location){
+//     fetch(`https://datausa.io/api/data?measure=Household%20Income%20by%20Race,Household%20Income%20by%20Race%20Moe&Geography=${location.stateStr}:similar&year=latest`)
+//         .then(res => res.json())
+//         .then(d => updateIncome(d))
+// }
 
-function getPropertyData(location){
-    fetch(`https://datausa.io/api/data?measure=Property%20Value&Geography=${location}:parents&year=latest`)
-        .then(res => res.json())
-        .then(cityObj => updateProperty(cityObj))
-}
+// function getPropertyData(location){
+//     fetch(`https://datausa.io/api/data?measure=Property%20Value&Geography=${location.stateStr}:parents&year=latest`)
+//         .then(res => res.json())
+//         .then(d => updateProperty(d))
+// }
 
-function getPopulation(location){
-    fetch(`https://datausa.io/api/data?measure=Population&Geography=${location}:parents&year=latest`)
-        .then(res => res.json())
-        .then(cityObj => updatePopulation(cityObj))
-}
+// function getPopulation(location){
+//     fetch(`https://datausa.io/api/data?measure=Population&Geography=${location.stateStr}:parents&year=latest`)
+//         .then(res => res.json())
+//         .then(d => updatePopulation(d))
+// }
 
-function getAge(location){
-    fetch(`https://datausa.io/api/data?measure=Median%20Age&Geography=${location}:parents&year=latest`)
-        .then(res => res.json())
-        .then(cityObj => updateAge(cityObj))
-}
 
+
+//RENDER UPDATES
+// function updateIncome(d){
+//     let householdIncome = d.data.slice(-1)['0']['Household Income by Race'].toLocaleString('en-US', {
+//             style: 'currency',
+//             currency: 'USD',
+//             maximumFractionDigits: 0,
+//         });
+
+//       console.log(householdIncome);
+//     //   return householdIncome;
+// }
+
+// function updateProperty(d){
+//     let propertyValue = d.data.slice(-1)['0']['Property Value'].toLocaleString('en-US', {
+//         style: 'currency',
+//         currency: 'USD',
+//         maximumFractionDigits: 0,
+//       });
+
+//     console.log(propertyValue);
+//     //   return propertyValue;
+// }
+
+// function updatePopulation(d){
+//     let population = d.data.slice(-1)['0']['Population'].toLocaleString()
+
+//     console.log(population);
+//     // return population;
+// }
+
+// function updateAge(ageData){
+//     return ageData.data.slice(-1)['0']['Median Age']
+// }
 
 //POST
-function postCard(newToyObject){
-    fetch(`http://localhost:3000/toys`, {
+function postLocation(location){
+    fetch(`http://localhost:3000/locations`, {
       method: 'POST',
       headers: {
         'Content-Type':'application/json',
         Accept:'application/json'
       },
-      body: JSON.stringify(newToyObject)
+      body: JSON.stringify(location)
     })
     .then(res => res.json())
-    .then(toy => console.log(toy))
+    .then(data => {console.log(data)})
   }
-
   
