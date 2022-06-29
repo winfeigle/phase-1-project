@@ -1,8 +1,8 @@
 const form = document.getElementById('search-form')
+const container = document.querySelector('.card-container')
 const incomeRow = document.getElementById('income')
 const states = document.getElementById('states')
-const card = document.querySelector('.card')
-const closeButton = document.getElementById('close-btn')
+const card = document.querySelector('#card')
 
 
 //EVENT LISTENERS
@@ -66,12 +66,52 @@ function updateAge(cityObj){
 //RENDER NEW CARD
 function renderCard(city, st, state){
 
-    let h3 = document.querySelector('.location h3')
+    //Create card that renders after form submission
+    const newCard = document.createElement('div')
+    newCard.id = 'card'
+    container.append(newCard)
+    
+    //Create close button
+    const closeButton = document.createElement('div')
+    closeButton.className = 'close-btn'
+    newCard.append(closeButton)
+
+    const closeIcon = document.createElement('img')
+    closeIcon.className = 'icon'
+    closeIcon.src = "./media/xmark-solid.png"
+    closeButton.append(closeIcon)
+
+    //Create Card Header (Location Info)
+    const cardHeader = document.createElement('div')
+    cardHeader.className = 'card-header'
+    
+        const h3 = document.createElement('h3')
         h3.textContent = city
-    let h4 = document.querySelector('.location h4')
+        h3.className = 'city'
+        cardHeader.append(h3)
+
+        const h4 = document.createElement('h4')
         h4.textContent = `${state}, USA`
-    let stateFlag = document.getElementById('flag')
+        h4.className = 'state'
+        cardHeader.append(h4)
+
+        const stateFlag = document.createElement('img')
         stateFlag.src = `https://www.states101.com/img/flags/svg/${state.toLowerCase()}.svg`
+        stateFlag.id = 'flag'
+        cardHeader.append(stateFlag)
+
+        newCard.append(cardHeader)
+
+    //Line of seperation
+    const hr = document.createElement('hr')
+    newCard.append(hr)
+
+    //Create Data Table pulled from API
+    const table = document.createElement('table')
+    table.className = 'data-table'
+    newCard.append(table)
+
+
 
     let location = `${city.replace(' ','-')}-${st}`.toLowerCase()
 
@@ -79,7 +119,6 @@ function renderCard(city, st, state){
     getPropertyData(location)
     getPopulation(location)
     getAge(location)
-    
 }
 
 
