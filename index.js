@@ -113,6 +113,39 @@ function renderCard(location){
 // }
 
 
+//RENDER UPDATES
+// function updateIncome(d){
+//     let householdIncome = d.data.slice(-1)['0']['Household Income by Race'].toLocaleString('en-US', {
+//             style: 'currency',
+//             currency: 'USD',
+//             maximumFractionDigits: 0,
+//         });
+
+//       console.log(householdIncome);
+//     //   return householdIncome;
+// }
+
+// function updateProperty(d){
+//     let propertyValue = d.data.slice(-1)['0']['Property Value'].toLocaleString('en-US', {
+//         style: 'currency',
+//         currency: 'USD',
+//         maximumFractionDigits: 0,
+//       });
+
+//     console.log(propertyValue);
+//     //   return propertyValue;
+// }
+
+// function updatePopulation(d){
+//     let population = d.data.slice(-1)['0']['Population'].toLocaleString()
+
+//     console.log(population);
+//     // return population;
+// }
+
+// function updateAge(ageData){
+//     return ageData.data.slice(-1)['0']['Median Age']
+// }
 
 //RENDER UPDATES
 // function updateIncome(d){
