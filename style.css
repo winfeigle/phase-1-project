@@ -87,7 +87,7 @@ h1, h2, h3, h4, p, td {
         opacity: 25%;
     }
 
-    p{
+    .data-div p{
         margin: 40px;
         font-size: 1.1rem;
         font-weight: 400;
@@ -111,8 +111,12 @@ h1, h2, h3, h4, p, td {
     width: 400px;
     height: auto;
     border-radius: 20px;
-    margin: 50px;
+    margin: 25px;
     padding-bottom: 20px;
+}
+
+#card:first-of-type{
+    margin-left: 50px;
 }
 
 .close-btn{
