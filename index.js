@@ -1,6 +1,8 @@
 const form = document.getElementById('search-form')
 const incomeRow = document.getElementById('income')
 const states = document.getElementById('states')
+const card = document.querySelector('.card')
+const closeButton = document.getElementById('close-btn')
 
 
 //EVENT LISTENERS
@@ -12,24 +14,10 @@ function handleSubmit(e){
     e.preventDefault()
 
     let city = e.target.city.value
-
     let st = e.target.states.value
-
     let state = states.options[states.selectedIndex].text
 
-
-
-
-    let h3 = document.querySelector('.location h3')
-    h3.textContent = city
-
-    let h4 = document.querySelector('.location h4')
-    h4.textContent = `${state}, USA`
-
-    let stateFlag = document.getElementById('flag')
-    stateFlag.src = `https://www.states101.com/img/flags/svg/${state.toLowerCase()}.svg`
-
-    renderCard(city, st)
+    renderCard(city, st, state)
 
     form.reset()
 }
@@ -76,7 +64,14 @@ function updateAge(cityObj){
 
 
 //RENDER NEW CARD
-function renderCard(city, st){
+function renderCard(city, st, state){
+
+    let h3 = document.querySelector('.location h3')
+        h3.textContent = city
+    let h4 = document.querySelector('.location h4')
+        h4.textContent = `${state}, USA`
+    let stateFlag = document.getElementById('flag')
+        stateFlag.src = `https://www.states101.com/img/flags/svg/${state.toLowerCase()}.svg`
 
     let location = `${city.replace(' ','-')}-${st}`.toLowerCase()
 
@@ -84,6 +79,7 @@ function renderCard(city, st){
     getPropertyData(location)
     getPopulation(location)
     getAge(location)
+    
 }
 
 
@@ -127,3 +123,5 @@ function postCard(newToyObject){
     .then(res => res.json())
     .then(toy => console.log(toy))
   }
+
+  
