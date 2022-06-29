@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./index.js"></script>
     <link rel="stylesheet" href="./style.css">
     <title>City Comparison Tool</title>
 </head>
@@ -14,8 +13,9 @@
         <h2>Compare quality of life metrics between hundreds of cities in the United States</h2>
 
         <form id='search-form'>
-            <input id='city' type='text' name='search' placeholder="City">
+            <input id='city' type='text' name='city' placeholder="City">
             <select id="state">
+                <option value="STATE">State</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
                 <option value="AZ">Arizona</option>
@@ -87,72 +87,36 @@
             </div>
             <hr>
             <table class="qol-container">
-                <!-- THIS LIST COULD BE A TABLE INSTEAD -->
                 <tr id="age">
                     <td >Median Age</td>
-                    <td class="data" width='40%'>
-                        32.5
+                    <td class="data" width="50%">
+
                     </td>
                 </tr>
                 <tr id="income">
                     <td>Median Household Income</td>
-                    <td class="data">
+                    <td class="data" width="50%">
 
                     </td>
                 </tr>
                 <tr id="property">
                     <td>Median Property Value</td>
-                    <td class="data">
+                    <td class="data" width="50%">
 
                     </td>
                 </tr>
                 <tr id="population">
-                    <td>2019 Population</td>
-                    <td class="data">
+                    <td>MSA Population</td>
+                    <td class="data" width="50%">
 
                     </td>
                 </tr>
             </table>
         </div>
-
-        <!-- <div class="card" id="card-2">
-            <div class="close-btn">
-                <img src="./media/xmark-solid.png" alt="" class="icon">
-            </div>
-            <div class="location">
-                <h3 class="city">Austin</h3>
-                <h4 class="state">Texas, USA</h4>
-                <img class="flag" src="https://www.states101.com/img/flags/svg/texas.svg" alt="">
-            </div>
-            <hr>
-            <div class="qol-container">
-                <ul class="qol-list">
-                    <li class="age">
-                        <div>
-                            Median Age
-                        </div>
-                    </li>
-                    <li class="income">
-                        <div>
-                            Median Household Income
-                        </div>
-                    </li>
-                    <li class="property">
-                        <div>
-                            Median Property Value
-                        </div>
-                    </li class="population">
-                    <li>
-                        <div>
-                            2019 Population
-                        </div>
-                    </li>
-                </ul> 
-            </div>
-        </div> -->
    </div>
 
    
+   <script src="./index.js"></script>
 
 </body>
 </html>

@@ -27,7 +27,39 @@ body{
     padding-left: 10px;
 }
 
-h1, h2, h3, h4, p, li {
+#search-form{
+    margin: 50px 0px 0px 0px;
+    display: flex;
+}
+
+#city, #state{
+    margin-right: 10px;
+    padding-left: 5px;
+    border: none;
+    border-radius: 3px;
+}
+
+#city{
+    width: 300px;
+    height: 40px;
+}
+
+#state{
+    width: 200px;
+}
+
+#search-btn{
+    padding: 0px 25px;
+    background-color: #1688d4;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-weight: bolder;
+}
+
+
+
+h1, h2, h3, h4, p, td {
     color: white;
     font-family: Helvetica, Arial, sans-serif;
 }
@@ -55,17 +87,22 @@ h1, h2, h3, h4, p, li {
         opacity: 25%;
     }
 
-    li{
-        list-style-type: none;
+    table{
         margin: 40px;
         font-size: 1.1rem;
         font-weight: 400;
     }
 
-    li p{
-        font-size: .9rem;
-        font-weight: 400;
-        opacity: 25%;
+    td{
+        padding: 15px 0px;
+    }
+
+    td.data{
+        font-family: monospace;
+        font-size: 1.25rem;
+        font-weight: bolder;
+        text-align: right;
+        color: #1688d4;
     }
 
 .card-container{
@@ -102,7 +139,7 @@ h1, h2, h3, h4, p, li {
 }
 
 hr{
-    border-color: #19cfe7;
+    border-color: #1688d4;
     margin: 25px auto;
     width: 80%;
     display: flex; 
