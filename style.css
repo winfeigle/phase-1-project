@@ -57,6 +57,11 @@ body{
     font-weight: bolder;
 }
 
+    #search-btn:hover{
+        background-color: #065f9a;
+        cursor: pointer;
+    }
+
 
 
 h1, h2, h3, h4, p, td {
@@ -128,6 +133,12 @@ h1, h2, h3, h4, p, td {
     padding: 10px;
     width: 16px;
 }
+
+    .icon:hover{
+        background-color: #444753;
+        border-radius: 10px;
+        cursor: pointer;
+    }
 
 .card-header{
     padding: 0px 40px;
