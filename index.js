@@ -46,6 +46,9 @@ function renderCard(location, income, age, property, population){
     closeIcon.src = "./media/xmark-solid.png"
     closeButton.append(closeIcon)
 
+    //Delete entire card when close icon is clicked
+    closeButton.addEventListener('click', (e) => console.log(e.target.parentElement.parentElement.remove()))
+
     //Create Card Header (location Info)
     const cardHeader = document.createElement('div')
     cardHeader.className = 'card-header'
@@ -86,7 +89,7 @@ function renderCard(location, income, age, property, population){
         `
 
         ageP.innerHTML = `
-        Median Age: <span class='data'>${age}</span>
+        Median Age: <span class='data'>${age} years</span>
         `
 
         propertyP.innerHTML = `
@@ -97,7 +100,6 @@ function renderCard(location, income, age, property, population){
         MSA Population: <span class='data'>${population}</span>
         `
 
-        closeButton.addEventListener('click', (e) => console.log(e.target.parentElement.parentElement.remove()))
 }
 
 
@@ -164,20 +166,21 @@ function updatePopulation(d){
     return population;
 }
 
-//POST
-// function postLocation(location){
-//     fetch(`http://localhost:3000/locations`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type':'application/json',
-//         Accept:'application/json'
-//       },
-//       body: JSON.stringify(location)
-//     })
-//     .then(res => res.json())
-//     .then(data => {console.log(data)})
-//   }
-
 
 //PRE-LOADED LOCATIONS
-  
+function preloadedLocations(city, st, state){
+
+    let preloadedLocation = {
+        city: city,
+        st: st,
+        state: state,
+        stateStr: `${city.replace(' ','-').toLowerCase()}-${st.toLowerCase()}`,
+    }
+
+    //Rendering card to page
+    getData(preloadedLocation, renderCard)
+}
+
+preloadedLocations('Denver', 'CO', 'Colorado')
+preloadedLocations('San Francisco', 'CA', 'California')
+// preloadedLocations('Bozeman', 'MT', 'Montana')

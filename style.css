@@ -10,11 +10,19 @@ body{
 }
 
 .header{
-    margin: 50px;
+    margin: 3% auto;
     width: 450px;
 }
 
-.header p{
+
+div#api-info{
+    justify-content: center;
+    display: inline-flex;
+    margin: 20px auto;
+    width: 100%;
+}
+
+#api-info p{
     padding-top: 40px;
     opacity: 50%;
     height: 25px;
@@ -22,7 +30,7 @@ body{
     align-items: center;
 }
 
-.header p img{
+#api-info img{
     width: 100px;
     padding-left: 10px;
 }
@@ -60,6 +68,7 @@ body{
     #search-btn:hover{
         background-color: #065f9a;
         cursor: pointer;
+        transition: 100ms;
     }
 
 
@@ -107,7 +116,11 @@ h1, h2, h3, h4, p, td {
     }
 
 .card-container{
-    display: inline-flex;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    max-width: 75%;
+    justify-content: center;
 }
 
 #card{
@@ -119,9 +132,10 @@ h1, h2, h3, h4, p, td {
     padding-bottom: 20px;
 }
 
-#card:first-of-type{
-    margin-left: 50px;
-}
+    #card:hover{
+        background-color: #323541;
+        transition: 300ms;
+    }
 
 .close-btn{
     padding: 25px;
@@ -138,6 +152,7 @@ h1, h2, h3, h4, p, td {
         background-color: #444753;
         border-radius: 10px;
         cursor: pointer;
+        transition: 250ms;
     }
 
 .card-header{
