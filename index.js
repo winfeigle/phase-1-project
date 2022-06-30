@@ -22,9 +22,6 @@ function handleSubmit(e){
     //Rendering card to page
     getData(newLocationObject, renderCard)
 
-    //Post city to db.json
-    // postLocation(newLocationObject)
-
     // //Resetting form
     form.reset()
 }
@@ -99,19 +96,12 @@ function renderCard(location, income, age, property, population){
         populationP.innerHTML = `
         MSA Population: <span class='data'>${population}</span>
         `
-}
 
-const configuration = {
-    mode: "cors",
-    method: "GET",
-    headers: {
-        Accept: "application/json",
-    }
+        closeButton.addEventListener('click', (e) => console.log(e.target.parentElement.parentElement.remove()))
 }
 
 
 //FETCH REQUESTS
-
 //GET DATA USING ASYNC FUNCTIONS & AWAIT
 async function getData(loc, callback){
     const location = loc.stateStr;
@@ -187,4 +177,7 @@ function updatePopulation(d){
 //     .then(res => res.json())
 //     .then(data => {console.log(data)})
 //   }
+
+
+//PRE-LOADED LOCATIONS
   
