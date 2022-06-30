@@ -20,8 +20,10 @@ function handleSubmit(e){
     }
 
     //Rendering card to page
-    renderCard(newLocationObject)
-    postLocation(newLocationObject)
+    getData(newLocationObject, renderCard)
+
+    //Post city to db.json
+    // postLocation(newLocationObject)
 
     // //Resetting form
     form.reset()
@@ -30,7 +32,7 @@ function handleSubmit(e){
 
 
 //RENDER NEW CARD
-function renderCard(location){
+function renderCard(location, income, age, property, population){
     
     //Create card that renders after form submission
     const newCard = document.createElement('div')
@@ -79,95 +81,110 @@ function renderCard(location){
     const populationP = document.createElement('p')
 
         dataDiv.append(incomeP, ageP, propertyP, populationP)
+        dataDiv.className = 'data-div'
         newCard.append(dataDiv)
-
+            
         incomeP.innerHTML = `
-        Median Income: <span class='data'>${getIncomeData(location.stateStr)}</span>
+        Median Income: <span class='data'>${income}</span>
         `
 
         ageP.innerHTML = `
-        Median Age: <span class='data'>${getAge(location.stateStr)}</span>
+        Median Age: <span class='data'>${age}</span>
         `
 
         propertyP.innerHTML = `
-        Median Property Value: <span class='data'>${getPropertyData(location.stateStr)}</span>
+        Median Property Value: <span class='data'>${property}</span>
         `
 
         populationP.innerHTML = `
-        MSA Population: <span class='data'>${getPropertyData(location.stateStr)}</span>
+        MSA Population: <span class='data'>${population}</span>
         `
+}
+
+const configuration = {
+    mode: "cors",
+    method: "GET",
+    headers: {
+        Accept: "application/json",
+    }
 }
 
 
 //FETCH REQUESTS
-//GET
-function getIncomeData(location){
-    fetch(`https://datausa.io/api/data?measure=Household%20Income%20by%20Race,Household%20Income%20by%20Race%20Moe&Geography=${location.stateStr}:similar&year=latest`)
-        .then(res => res.json())
-        .then(d => updateIncome(d))
+
+//GET DATA USING ASYNC FUNCTIONS & AWAIT
+async function getData(loc, callback){
+    const location = loc.stateStr;
+    let incomeData, ageData, propertyData, populationData;
+    try {
+        incomeData = await fetch(`https://datausa.io/api/data?measure=Household%20Income%20by%20Race,Household%20Income%20by%20Race%20Moe&Geography=${location}:similar&year=latest`)
+            .then(res => res.json())
+            .then(d => updateIncome(d))
+
+        ageData = await fetch(`https://datausa.io/api/data?measure=Median%20Age&Geography=${location}:parents&year=latest`)
+            .then(response => response.json())
+            .then(d => updateAge(d))
+
+        propertyData = await fetch(`https://datausa.io/api/data?measure=Property%20Value&Geography=${location}:parents&year=latest`)
+            .then(res => res.json())
+            .then(d => updateProperty(d))
+
+        populationData = await fetch(`https://datausa.io/api/data?measure=Population&Geography=${location}:parents&year=latest`)
+            .then(res => res.json())
+            .then(d => updatePopulation(d))
+    } catch(error){
+        console.log(error)
+    } finally{
+        callback(loc, incomeData, ageData, propertyData, populationData)
+    }
 }
 
-function getPropertyData(location){
-    fetch(`https://datausa.io/api/data?measure=Property%20Value&Geography=${location.stateStr}:parents&year=latest`)
-        .then(res => res.json())
-        .then(d => updateProperty(d))
-}
-
-function getPopulation(location){
-    fetch(`https://datausa.io/api/data?measure=Population&Geography=${location.stateStr}:parents&year=latest`)
-        .then(res => res.json())
-        .then(d => updatePopulation(d))
-}
-
-function getAge(stateStr){
-    fetch(`https://datausa.io/api/data?measure=Median%20Age&Geography=${stateStr}:parents&year=latest`)
-        .then(response => response.json())
-        .then(ageData => updateAge(ageData))
-}
 
 
 //RENDER UPDATES
 function updateIncome(d){
-    let householdIncome = d.data.slice(-1)['0']['Household Income by Race'].toLocaleString('en-US', {
+    const householdIncome = d.data.slice(-1)['0']['Household Income by Race'].toLocaleString('en-US', {
             style: 'currency',
             currency: 'USD',
             maximumFractionDigits: 0,
         });
-
+        // console.log(householdIncome)
       return householdIncome;
 }
 
+function updateAge(d){
+    const age = d.data.slice(-1)['0']['Median Age']
+    // console.log(age)
+    return age;
+}
+
 function updateProperty(d){
-    let propertyValue = d.data.slice(-1)['0']['Property Value'].toLocaleString('en-US', {
+    const propertyValue = d.data.slice(-1)['0']['Property Value'].toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
         maximumFractionDigits: 0,
       });
-
+      
     return propertyValue;
 }
 
 function updatePopulation(d){
-    let population = d.data.slice(-1)['0']['Population'].toLocaleString()
+    const population = d.data.slice(-1)['0']['Population'].toLocaleString()
 
     return population;
 }
 
-function updateAge(ageData){
-    return ageData.data.slice(-1)['0']['Median Age']
-}
-
 //POST
-function postLocation(location){
-    fetch(`http://localhost:3000/locations`, {
-      method: 'POST',
-      headers: {
-        'Content-Type':'application/json',
-        Accept:'application/json'
-      },
-      body: JSON.stringify(location)
-    })
-    .then(res => res.json())
-    .then(data => {console.log(data)})
-  }
+// function postLocation(location){
+//     fetch(`http://localhost:3000/locations`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type':'application/json',
+//         Accept:'application/json'
+//       },
+//       body: JSON.stringify(location)
+//     })
+//     .then(res => res.json())
+//     .then(data => {console.log(data)})
+//   }
   
