@@ -168,12 +168,18 @@ function updatePopulation(d){
 
 
 //PRE-LOADED LOCATIONS
-function preloadedLocations(city, st, state){
+const randomLocations = [
+   ['Denver', 'CO', 'Colorado'],
+   ['Cincinnati', 'OH', 'Ohio'],
+   ['Boston', 'MA', 'Massachusetts'],
+]
+
+function preloadLocation(city, st, state){
 
     let preloadedLocation = {
-        city: city,
-        st: st,
-        state: state,
+        city: city.toString(),
+        st: st.toString(),
+        state: state.toString(),
         stateStr: `${city.replace(' ','-').toLowerCase()}-${st.toLowerCase()}`,
     }
 
@@ -181,6 +187,5 @@ function preloadedLocations(city, st, state){
     getData(preloadedLocation, renderCard)
 }
 
-preloadedLocations('Denver', 'CO', 'Colorado')
-preloadedLocations('San Francisco', 'CA', 'California')
-// preloadedLocations('Bozeman', 'MT', 'Montana')
+randomLocations.forEach(location => preloadLocation(location[0], location[1], location[2]))
+

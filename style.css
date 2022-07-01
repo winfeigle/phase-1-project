@@ -15,26 +15,6 @@ body{
 }
 
 
-div#api-info{
-    justify-content: center;
-    display: inline-flex;
-    margin: 20px auto;
-    width: 100%;
-}
-
-#api-info p{
-    padding-top: 40px;
-    opacity: 50%;
-    height: 25px;
-    display: flex;
-    align-items: center;
-}
-
-#api-info img{
-    width: 100px;
-    padding-left: 10px;
-}
-
 #search-form{
     margin: 50px 0px 0px 0px;
     display: flex;
@@ -81,12 +61,14 @@ h1, h2, h3, h4, p, td {
     h1 {
         font-size: 2rem;
         margin-bottom: 0.75rem;
+        text-align: center;
     }
 
     h2{
         font-weight: lighter;
         font-size: 1.25rem;
         line-height: 1.75rem;
+        text-align: center;
     }
 
     h3{
@@ -170,6 +152,42 @@ hr{
     margin: 25px auto;
     width: 80%;
     display: flex; 
+}
+
+
+div#api-info{
+    justify-content: center;
+    display: inline-flex;
+    margin: 20px auto;
+    width: 100%;
+}
+
+#api-info p{
+    padding-top: 40px;
+    opacity: 20%;
+    height: 25px;
+    display: flex;
+    align-items: center;
+}
+
+#api-info img{
+    height: 30px;
+    padding-left: 20px;
+}
+
+footer{
+    margin: 50px;
+}
+
+footer #signature a{
+    color: white;
+}
+
+footer #signature{
+    padding-top: 20px;
+    text-align: center;
+    opacity: 50%;
+    text-decoration: inherit;
 }
 
 
