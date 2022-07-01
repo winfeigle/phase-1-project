@@ -5,9 +5,8 @@ const card = document.querySelector('#card')
 
 
 //EVENT LISTENERS
+//Populate card container after DOM loads
 document.addEventListener('DOMContentLoaded', preloadLocations)
-
-
 
 form.addEventListener('submit', handleSubmit)
 
@@ -78,6 +77,7 @@ function renderCard(location, income, age, property, population){
     const hr = document.createElement('hr')
     newCard.append(hr)
 
+    //Create data div that populates with fetched info from API
     const dataDiv = document.createElement('div')
     const incomeP = document.createElement('p')
     const ageP = document.createElement('p')
@@ -150,7 +150,7 @@ function updateIncome(d){
 
 function updateAge(d){
     const age = d.data.slice(-1)['0']['Median Age']
-    // console.log(age)
+   
     return age;
 }
 
