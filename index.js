@@ -5,6 +5,10 @@ const card = document.querySelector('#card')
 
 
 //EVENT LISTENERS
+document.addEventListener('DOMContentLoaded', preloadLocations)
+
+
+
 form.addEventListener('submit', handleSubmit)
 
 
@@ -187,5 +191,7 @@ function preloadLocation(city, st, state){
     getData(preloadedLocation, renderCard)
 }
 
-randomLocations.forEach(location => preloadLocation(location[0], location[1], location[2]))
+function preloadLocations(){
+    randomLocations.forEach(location => preloadLocation(location[0], location[1], location[2]))
+}
 
